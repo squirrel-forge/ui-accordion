@@ -16,5 +16,5 @@ export { UiAccordionPanelComponent } from './Accordion/UiAccordionPanelComponent
 /**
  * Plugins
  */
-export { UiAccordionPluginToggle } from './Plugins/UiAccordionPluginToggleMode.js';
-export { UiAccordionPluginScroller } from './Plugins/UiAccordionPluginScrollFocus.js';
+export { UiAccordionPluginToggle } from './Plugins/UiAccordionPluginToggle.js';
+export { UiAccordionPluginScroller } from './Plugins/UiAccordionPluginScroller.js';
