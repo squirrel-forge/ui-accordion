@@ -1,8 +1,12 @@
 /**
  * Requires
  */
-import { UiPlugin } from '../../../../ui-core';
-// import { UiPlugin } from '@squirrel-forge/ui-core';
+import {
+    UiPlugin
+} from '@squirrel-forge/ui-core';
+
+// Import for local dev
+// } from '../../../../ui-core';
 
 /**
  * Ui accordion plugin scroll focus
@@ -38,8 +42,8 @@ export class UiAccordionPluginScroller extends UiPlugin {
             scrollToOn : [ 'panel.shown' ],
 
             // Scroll to callback
-            // @type {true|Function}
-            scrollTo : true,
+            // @type {boolean|Function}
+            scrollTo : false,
 
             // Open panel on scroll to panel or content
             // @type {Array}
