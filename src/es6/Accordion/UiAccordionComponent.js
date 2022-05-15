@@ -1,10 +1,19 @@
 /**
  * Requires
  */
-import { UiComponent } from '../../../../ui-core';
-// import { UiComponent } from '@squirrel-forge/ui-core';
-import { Exception, isPojo } from '../../../../ui-util';
-// import { Exception, isPojo } from '@squirrel-forge/ui-util';
+import {
+    UiComponent
+} from '@squirrel-forge/ui-core';
+
+// Import for local dev
+// } from '../../../../ui-core';
+import {
+    Exception,
+    isPojo
+} from '@squirrel-forge/ui-util';
+
+// Import for local dev
+// } from '../../../../ui-util';
 import { UiAccordionPanelComponent } from './UiAccordionPanelComponent';
 
 /**
@@ -33,17 +42,23 @@ export class UiAccordionComponent extends UiComponent {
      * @constructor
      * @param {HTMLElement|HTMLOListElement} element - List element
      * @param {null|Object} settings - Config object
-     * @param {Array<Function|Array<Function,*>>} plugins - Plugins to load
-     * @param {null|console|Object} debug - Debug object
+     * @param {Object} defaults - Default config
      * @param {Array<Object>} extend - Extend default config
+     * @param {Object} states - States definition
+     * @param {Array<Function|Array<Function,*>>} plugins - Plugins to load
+     * @param {null|UiComponent} parent - Parent object
+     * @param {null|console|Object} debug - Debug object
      * @param {boolean} init - Run init method
      */
     constructor(
         element,
         settings = null,
+        defaults = null,
+        extend = null,
+        states = null,
         plugins = null,
+        parent = null,
         debug = null,
-        extend = [],
         init = true
     ) {
 
@@ -54,13 +69,14 @@ export class UiAccordionComponent extends UiComponent {
          * Default config
          * @type {Object}
          */
-        const defaults = {
+        defaults = defaults || {
 
             // Mode
             // @type {'free'}
             mode : 'free',
 
             // Available modes
+            // @type {Array}
             availableModes : [ 'free' ],
 
             // Children
@@ -77,13 +93,13 @@ export class UiAccordionComponent extends UiComponent {
          * Default states
          * @type {Object}
          */
-        const states = {
+        states = states || {
             initialized : { classOn : 'ui-accordion--initialized' },
             disabled : { global : false, classOn : 'ui-accordion--disabled' },
         };
 
         // Initialize parent
-        super( element, settings, defaults, extend, states, plugins, null, debug, init );
+        super( element, settings, defaults, extend, states, plugins, parent, debug, init );
     }
 
     /**
@@ -109,7 +125,7 @@ export class UiAccordionComponent extends UiComponent {
 
         // Component events
         this.addEventList( [
-            [ 'initialized', () => { this.#event_initialized(); } ],
+            [ 'initialized', ( event ) => { this.#event_initialized( event ); } ],
             [ 'keydown', ( event ) => { this.#event_keydown( event ); } ],
         ] );
     }
@@ -117,9 +133,11 @@ export class UiAccordionComponent extends UiComponent {
     /**
      * Event initialized
      * @private
+     * @param {Event} event - Initialized event
      * @return {void}
      */
-    #event_initialized() {
+    #event_initialized( event ) {
+        if ( event.detail.target !== this ) return;
 
         // Initialize panels
         this._initChildren();
