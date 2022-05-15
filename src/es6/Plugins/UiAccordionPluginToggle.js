@@ -1,8 +1,12 @@
 /**
  * Requires
  */
-import { UiPlugin } from '../../../../ui-core';
-// import { UiPlugin } from '@squirrel-forge/ui-core';
+import {
+    UiPlugin
+} from '@squirrel-forge/ui-core';
+
+// Import for local dev
+// } from '../../../../ui-core';
 
 /**
  * Ui accordion plugin toggle mode
@@ -36,6 +40,10 @@ export class UiAccordionPluginToggle extends UiPlugin {
             // Mode
             // @type {'free'|'toggle'}
             mode : 'toggle',
+
+            // Available modes
+            // @type {Array}
+            availableModes : [ 'free', 'toggle' ],
 
             // Close all panels except the first open one on init
             // @type {boolean}
