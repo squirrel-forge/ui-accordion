@@ -109,8 +109,8 @@ export class UiAccordionPanelComponent extends UiComponent {
          */
         states = states || {
             initialized : { classOn : 'ui-accordion__panel--initialized' },
-            closed : { classOn : 'ui-accordion__panel--closed' },
-            open : { classOn : 'ui-accordion__panel--open' },
+            closed : { classOn : 'ui-accordion__panel--closed', unsets : [ 'open' ] },
+            open : { classOn : 'ui-accordion__panel--open', unsets : [ 'closed' ] },
             focus : { global : false, classOn : 'ui-accordion__panel--focus', unsets : [ 'blur' ] },
             blur : { global : false, classOn : 'ui-accordion__panel--blur', unsets : [ 'focus' ] },
             disabled : { global : false, classOn : 'ui-accordion__panel--disabled' },
@@ -313,9 +313,9 @@ export class UiAccordionPanelComponent extends UiComponent {
             const content = this.getDomRefs( 'content', false );
 
             // Show panel content and ensure slide animation is visible
+            this.dom.setAttribute( 'open', '' );
             summary.setAttribute( 'aria-expanded', 'true' );
             this.states.set( 'open' );
-            this.dom.setAttribute( 'open', '' );
             if ( events ) this.dispatchEvent( 'panel.show' );
             slideShow( content, instant ? 0 : options.speed, options.easing, () => {
                 if ( events ) this.dispatchEvent( 'panel.shown' );
@@ -341,6 +341,7 @@ export class UiAccordionPanelComponent extends UiComponent {
             const options = this.config.get( 'slideOptions' );
             const summary = this.getDomRefs( 'summary', false );
             const content = this.getDomRefs( 'content', false );
+            this.states.set( 'closed' );
 
             // Hide panel content
             if ( events ) this.dispatchEvent( 'panel.hide' );
@@ -348,7 +349,6 @@ export class UiAccordionPanelComponent extends UiComponent {
 
                 // Set states after transition to prevent interruption
                 summary.setAttribute( 'aria-expanded', 'false' );
-                this.states.set( 'closed' );
                 this.dom.removeAttribute( 'open' );
                 if ( events ) this.dispatchEvent( 'panel.hidden' );
             } );
