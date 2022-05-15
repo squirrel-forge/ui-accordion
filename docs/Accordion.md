@@ -2,7 +2,7 @@
 > [Back to table of contents](../README.md#table-of-contents)
 
 # Documentation
-### Javascript / Form
+### Javascript / Accordion
 > [Table of contents](../README.md#table-of-contents) <[ Accordion ]> [Plugins](Plugins.md)
 
 ## Table of contents
@@ -24,6 +24,7 @@ const defaults = {
     mode : 'free',
 
     // Available modes
+    // @type {Array}
     availableModes : [ 'free' ],
 
     // Children
