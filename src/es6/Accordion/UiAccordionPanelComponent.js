@@ -1,10 +1,22 @@
 /**
  * Requires
  */
-import { UiComponent } from '../../../../ui-core';
-// import { UiComponent } from '@squirrel-forge/ui-core';
-import { Exception, bindNodeList, requireUniqid, slideShow, slideHide } from '../../../../ui-util';
-// import { Exception, bindNodeList, requireUniqid, slideShow, slideHide } from '@squirrel-forge/ui-util';
+import {
+    UiComponent
+} from '@squirrel-forge/ui-core';
+
+// Import for local dev
+// } from '../../../../ui-core';
+import {
+    Exception,
+    bindNodeList,
+    requireUniqid,
+    slideShow,
+    slideHide
+} from '@squirrel-forge/ui-util';
+
+// Import for local dev
+// } from '../../../../ui-util';
 
 /**
  * Ui accordion panel component exception
@@ -32,19 +44,23 @@ export class UiAccordionPanelComponent extends UiComponent {
      * @constructor
      * @param {HTMLElement|HTMLDetailsElement} element - List element
      * @param {null|Object} settings - Config object
+     * @param {Object} defaults - Default config
+     * @param {Array<Object>} extend - Extend default config
+     * @param {Object} states - States definition
      * @param {Array<Function|Array<Function,*>>} plugins - Plugins to load
      * @param {null|UiAccordionComponent} parent - Accordion parent component
      * @param {null|console|Object} debug - Debug object
-     * @param {Array<Object>} extend - Extend default config
      * @param {boolean} init - Run init method
      */
     constructor(
         element,
         settings = null,
+        defaults = null,
+        extend = null,
+        states = null,
         plugins = null,
         parent = null,
         debug = null,
-        extend = [],
         init = true
     ) {
 
@@ -55,7 +71,7 @@ export class UiAccordionPanelComponent extends UiComponent {
          * Default config
          * @type {Object}
          */
-        const defaults = {
+        defaults = defaults || {
 
             // Close the panel when disabled
             // @type {boolean}
@@ -91,10 +107,10 @@ export class UiAccordionPanelComponent extends UiComponent {
          * Default states
          * @type {Object}
          */
-        const states = {
+        states = states || {
             initialized : { classOn : 'ui-accordion__panel--initialized' },
-            closed : { classOn : 'ui-accordion__panel--closed', unsets : [ 'open' ] },
-            open : { classOn : 'ui-accordion__panel--open', unsets : [ 'closed' ] },
+            closed : { classOn : 'ui-accordion__panel--closed' },
+            open : { classOn : 'ui-accordion__panel--open' },
             focus : { global : false, classOn : 'ui-accordion__panel--focus', unsets : [ 'blur' ] },
             blur : { global : false, classOn : 'ui-accordion__panel--blur', unsets : [ 'focus' ] },
             disabled : { global : false, classOn : 'ui-accordion__panel--disabled' },
@@ -167,14 +183,10 @@ export class UiAccordionPanelComponent extends UiComponent {
         // Set open or closed state
         if ( this.dom.hasAttribute( 'open' ) ) {
             summary.setAttribute( 'aria-expanded', 'true' );
-            content.removeAttribute( 'aria-hidden' );
-            content.style.display = '';
-            this.states.set( 'open' );
+            this.show( false, true, true );
         } else {
             summary.setAttribute( 'aria-expanded', 'false' );
-            content.setAttribute( 'aria-hidden', 'true' );
-            content.style.display = 'none';
-            this.states.set( 'closed' );
+            this.hide( false, true, true );
         }
 
         // Set disabled state
@@ -274,9 +286,9 @@ export class UiAccordionPanelComponent extends UiComponent {
         }
         if ( this.open !== state ) {
             if ( this.open ) {
-                this.show();
-            } else {
                 this.hide();
+            } else {
+                this.show();
             }
         }
     }
@@ -285,24 +297,27 @@ export class UiAccordionPanelComponent extends UiComponent {
      * Show panel
      * @param {boolean} events - Fire events
      * @param {boolean} force - Force open
+     * @param {boolean} instant - No transition
      * @return {void}
      */
-    show( events = true, force = false ) {
+    show( events = true, force = false, instant = false ) {
         if ( !this.open ) {
 
             // Check if we can show
             // With force enabled plugins will still run, but cannot prevent the action
-            if ( this.parent.canShow( this ) === false && !force ) return;
+            if ( !force && this.parent.canShow( this ) === false ) return;
 
-            // Show panel content
+            // Get references
             const options = this.config.get( 'slideOptions' );
             const summary = this.getDomRefs( 'summary', false );
+            const content = this.getDomRefs( 'content', false );
+
+            // Show panel content and ensure slide animation is visible
             summary.setAttribute( 'aria-expanded', 'true' );
             this.states.set( 'open' );
             this.dom.setAttribute( 'open', '' );
             if ( events ) this.dispatchEvent( 'panel.show' );
-            const content = this.getDomRefs( 'content', false );
-            slideShow( content, options.speed, options.easing, () => {
+            slideShow( content, instant ? 0 : options.speed, options.easing, () => {
                 if ( events ) this.dispatchEvent( 'panel.shown' );
             } );
         }
@@ -312,24 +327,29 @@ export class UiAccordionPanelComponent extends UiComponent {
      * Hide panel
      * @param {boolean} events - Fire events
      * @param {boolean} force - Force open
+     * @param {boolean} instant - No transition
      * @return {void}
      */
-    hide( events = true, force = false ) {
+    hide( events = true, force = false, instant = false ) {
         if ( this.open ) {
 
             // Check if we can hide
             // With force enabled plugins will still run, but cannot prevent the action
-            if ( this.parent.canHide( this ) === false && !force ) return;
+            if ( !force && this.parent.canHide( this ) === false ) return;
 
-            // Show panel content
+            // Get references
             const options = this.config.get( 'slideOptions' );
             const summary = this.getDomRefs( 'summary', false );
-            summary.setAttribute( 'aria-expanded', 'false' );
-            this.states.set( 'closed' );
-            this.dom.removeAttribute( 'open' );
-            if ( events ) this.dispatchEvent( 'panel.hide' );
             const content = this.getDomRefs( 'content', false );
-            slideHide( content, options.speed, options.easing, () => {
+
+            // Hide panel content
+            if ( events ) this.dispatchEvent( 'panel.hide' );
+            slideHide( content, instant ? 0 : options.speed, options.easing, () => {
+
+                // Set states after transition to prevent interruption
+                summary.setAttribute( 'aria-expanded', 'false' );
+                this.states.set( 'closed' );
+                this.dom.removeAttribute( 'open' );
                 if ( events ) this.dispatchEvent( 'panel.hidden' );
             } );
         }
