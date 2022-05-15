@@ -157,8 +157,8 @@ export class UiAccordionComponent extends UiComponent {
         let index = null;
         this.eachChild( ( child, i ) => {
 
-            // Focus target is part of the panel and not part of the content
-            if ( child.dom.contains( event.currentTarget ) && !child.content.contains( event.currentTarget ) ) {
+            // Focus target is the panel or part of it and not part of the content
+            if ( child.dom === event.target || child.dom.contains( event.target ) && !child.content.contains( event.target ) ) {
                 index = i;
                 return true;
             }
@@ -172,12 +172,12 @@ export class UiAccordionComponent extends UiComponent {
             if ( move_focus_to === null ) {
                 if ( event.key === 'ArrowUp' ) {
                     move_focus_to = this.#select_first_active_from( index - 1, -1 );
-                    if ( !move_focus_to ) {
+                    if ( move_focus_to === null ) {
                         move_focus_to = this.#select_first_active_from( this.children.length - 1, -1 );
                     }
                 } else if ( event.key === 'ArrowDown' ) {
                     move_focus_to = this.#select_first_active_from( index + 1, 1 );
-                    if ( !move_focus_to ) {
+                    if ( move_focus_to === null ) {
                         move_focus_to = this.#select_first_active_from( 0, 1 );
                     }
                 } else if ( event.key === 'Home' ) {
