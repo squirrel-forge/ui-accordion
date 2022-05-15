@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.6.2
+ - Fixed *openOn* target checks.
+
 ## 0.6.1
  - Fixed *open* and *closed* state not unsetting eachother.
  - Fixed keyboard actions current panel selection.
