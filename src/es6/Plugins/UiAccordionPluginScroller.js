@@ -73,7 +73,7 @@ export class UiAccordionPluginScroller extends UiPlugin {
         const events = this.context.config.get( 'openOn' );
         if ( events.includes( event.type ) ) {
             this.context.eachChild( ( panel ) => {
-                if ( panel.dom === events.detail.scrollTarget || panel.dom.contains( events.detail.scrollTarget ) ) {
+                if ( panel.dom === event.detail.scrollTarget || panel.dom.contains( event.detail.scrollTarget ) ) {
                     panel.open = true;
                     return true;
                 }
