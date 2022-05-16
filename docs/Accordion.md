@@ -1,4 +1,4 @@
-### @squirrel-forge/ui-form
+### @squirrel-forge/ui-accordion
 > [Back to table of contents](../README.md#table-of-contents)
 
 # Documentation
