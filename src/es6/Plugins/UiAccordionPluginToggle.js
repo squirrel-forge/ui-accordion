@@ -83,11 +83,22 @@ export class UiAccordionPluginToggle extends UiPlugin {
      */
     #event_panelShow( event ) {
         if ( this.context.mode === 'toggle' && event.detail.target ) {
-            this.context.eachChild( ( child ) => {
-
-                // Close every child that is not the one we are showing
-                if ( child !== event.detail.target ) child.open = false;
+            let nothing_is_animating = true;
+            this.context.eachChild( ( panel ) => {
+                if ( panel.animating ) {
+                    nothing_is_animating = false;
+                    return true;
+                }
             } );
+            if ( nothing_is_animating ) {
+                this.context.eachChild( ( panel ) => {
+
+                    // Close every child that is not the one we are showing
+                    if ( panel !== event.detail.target ) panel.open = false;
+                } );
+            } else {
+                event.preventDefault();
+            }
         }
     }
 }
