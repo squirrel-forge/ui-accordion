@@ -19,17 +19,21 @@ Component settings are changed/extended as following.
 ```javascript
 const extendConfig = {
 
-    // Scroll to panel on events
-    // @type {Array}
-    scrollToOn : [ 'panel.shown' ],
+    // Open panel on scroll to panel or content, Scroll to callback
+    // @type {null|boolean|Function}
+    scrollTo : null,
 
-    // Scroll to callback
-    // @type {true|Function}
-    scrollTo : false,
+    // Open panel on scroll to panel, not content
+    // @type {boolean}
+    openOnScrollTo : true,
 
-    // Open panel on scroll to panel or content
-    // @type {Array}
-    openOn : [ 'scroll.after' ],
+    // Capture scroll into closed panel
+    // @type {boolean}
+    captureScrollInto: true,
+
+    // Safe animation position for panel.show event
+    // @type {boolean}
+    safemode : true,
 };
 ```
 
