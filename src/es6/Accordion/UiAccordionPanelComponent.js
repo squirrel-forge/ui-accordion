@@ -111,6 +111,7 @@ export class UiAccordionPanelComponent extends UiComponent {
             initialized : { classOn : 'ui-accordion__panel--initialized' },
             closed : { classOn : 'ui-accordion__panel--closed', unsets : [ 'open' ] },
             open : { classOn : 'ui-accordion__panel--open', unsets : [ 'closed' ] },
+            animating : { global : false, classOn : 'ui-accordion__panel--animating' },
             focus : { global : false, classOn : 'ui-accordion__panel--focus', unsets : [ 'blur' ] },
             blur : { global : false, classOn : 'ui-accordion__panel--blur', unsets : [ 'focus' ] },
             disabled : { global : false, classOn : 'ui-accordion__panel--disabled' },
@@ -294,6 +295,15 @@ export class UiAccordionPanelComponent extends UiComponent {
     }
 
     /**
+     * Animating state getter
+     * @public
+     * @return {boolean} - True if animating
+     */
+    get animating() {
+        return this.states.is( 'animating' );
+    }
+
+    /**
      * Show panel
      * @param {boolean} events - Fire events
      * @param {boolean} force - Force open
@@ -301,11 +311,19 @@ export class UiAccordionPanelComponent extends UiComponent {
      * @return {void}
      */
     show( events = true, force = false, instant = false ) {
-        if ( !this.open ) {
+        if ( !this.open && !this.states.is( 'animating' ) ) {
+            this.states.set( 'animating' );
 
             // Check if we can show
             // With force enabled plugins will still run, but cannot prevent the action
-            if ( !force && this.parent.canShow( this ) === false ) return;
+            if ( !force && this.parent.canShow( this ) === false ) {
+                this.states.unset( 'animating' );
+                return;
+            }
+            if ( events && !this.dispatchEvent( 'panel.show' ) ) {
+                this.states.unset( 'animating' );
+                return;
+            }
 
             // Get references
             const options = this.config.get( 'slideOptions' );
@@ -316,8 +334,8 @@ export class UiAccordionPanelComponent extends UiComponent {
             this.dom.setAttribute( 'open', '' );
             summary.setAttribute( 'aria-expanded', 'true' );
             this.states.set( 'open' );
-            if ( events ) this.dispatchEvent( 'panel.show' );
             slideShow( content, instant ? 0 : options.speed, options.easing, () => {
+                this.states.unset( 'animating' );
                 if ( events ) this.dispatchEvent( 'panel.shown' );
             } );
         }
@@ -331,11 +349,19 @@ export class UiAccordionPanelComponent extends UiComponent {
      * @return {void}
      */
     hide( events = true, force = false, instant = false ) {
-        if ( this.open ) {
+        if ( this.open && !this.states.is( 'animating' ) ) {
+            this.states.set( 'animating' );
 
             // Check if we can hide
             // With force enabled plugins will still run, but cannot prevent the action
-            if ( !force && this.parent.canHide( this ) === false ) return;
+            if ( !force && this.parent.canHide( this ) === false ) {
+                this.states.unset( 'animating' );
+                return;
+            }
+            if ( events && !this.dispatchEvent( 'panel.hide' ) ) {
+                this.states.unset( 'animating' );
+                return;
+            }
 
             // Get references
             const options = this.config.get( 'slideOptions' );
@@ -344,12 +370,12 @@ export class UiAccordionPanelComponent extends UiComponent {
             this.states.set( 'closed' );
 
             // Hide panel content
-            if ( events ) this.dispatchEvent( 'panel.hide' );
             slideHide( content, instant ? 0 : options.speed, options.easing, () => {
 
                 // Set states after transition to prevent interruption
                 summary.setAttribute( 'aria-expanded', 'false' );
                 this.dom.removeAttribute( 'open' );
+                this.states.unset( 'animating' );
                 if ( events ) this.dispatchEvent( 'panel.hidden' );
             } );
         }
