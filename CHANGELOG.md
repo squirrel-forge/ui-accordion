@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0
+ - Cleaned up Scroller plugin, refactored "open on" logic with new options.
+ - Scroller plugin updated scrolling options and added *safemode* option.
+ - Added *UiAccordionPanelComponent* state *animating*.
+ - Updated dependencies.
+
 ## 0.6.2
  - Fixed *openOn* target checks.
 
