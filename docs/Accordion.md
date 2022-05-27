@@ -67,7 +67,7 @@ UiAccordionComponent.makeAll();
 ```
 
 #### Component markup
-Following markup is required for an async form.
+Following markup is required for an accordion.
 ```html
 <ol is="ui-accordion" class="ui-accordion"></ol>
 ```
@@ -142,7 +142,7 @@ For more details check the [UiAccordionPanelComponent source file](../src/es6/Ac
 For details refer to the settings, class overview and code file mentioned above.
 
 #### Component markup
-Following markup is should be used for an accordion panel, required are only the panel, summary and content elements.
+Following markup should be used for an accordion panel, required are only the panel, summary and content elements.
 ```html
 <li class="ui-accordion__item">
     <details is="ui-accordion-panel" class="ui-accordion__panel" open>
