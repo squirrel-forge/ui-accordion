@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.7.2
+ - Fixed broken event listener.
+
 ## 0.7.1
  - Fixed *UiAccordionPanelComponent* *initialized* event to listen only for self.
 
