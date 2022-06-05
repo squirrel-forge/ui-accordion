@@ -161,7 +161,7 @@ export class UiAccordionPanelComponent extends UiComponent {
 
         // Component events
         this.addEventList( [
-            [ 'initialized', () => { this.#event_initialized(); } ],
+            [ 'initialized', ( event ) => { this.#event_initialized( event ); } ],
         ] );
     }
 
