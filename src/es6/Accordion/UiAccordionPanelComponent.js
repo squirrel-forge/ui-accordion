@@ -168,9 +168,11 @@ export class UiAccordionPanelComponent extends UiComponent {
     /**
      * Event initialized
      * @private
+     * @param {Event} event - Initialized event
      * @return {void}
      */
-    #event_initialized() {
+    #event_initialized( event ) {
+        if ( event.detail.target !== this ) return;
 
         // Get elements
         const summary = this.getDomRefs( 'summary', false );
