@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.3
+ - Fixed toggle plugin *animating* state collision.
+ - Restrict toggle plugin *children.initialized* event to own parent only.
+
 ## 0.7.2
  - Fixed broken event listener.
 
