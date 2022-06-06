@@ -83,9 +83,11 @@ export class UiAccordionPluginToggle extends UiPlugin {
      */
     #event_panelShow( event ) {
         if ( this.context.mode === 'toggle' && event.detail.target ) {
+
+            // Check if any other panel is animating
             let nothing_is_animating = true;
             this.context.eachChild( ( panel ) => {
-                if ( panel.animating ) {
+                if ( panel !== event.detail.target && panel.animating ) {
                     nothing_is_animating = false;
                     return true;
                 }
@@ -97,6 +99,8 @@ export class UiAccordionPluginToggle extends UiPlugin {
                     if ( panel !== event.detail.target ) panel.open = false;
                 } );
             } else {
+
+                // Prevent the panel.show since something else is still animating
                 event.preventDefault();
             }
         }
