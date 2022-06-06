@@ -1,6 +1,6 @@
 /* !
  * @module      : @squirrel-forge/ui-accordion
- * @version     : 0.7.3
+ * @version     : 0.7.4
  * @license     : MIT
  * @copyright   : 2022 squirrel-forge
  * @author      : Daniel Hartwell aka. siux <me@siux.info>
