@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.7.4
+ - Ensure *panel.show* and *panel.hide* event are cancellable.
+
 ## 0.7.3
  - Fixed toggle plugin *animating* state collision.
  - Restrict toggle plugin *children.initialized* event to own parent only.
