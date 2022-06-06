@@ -60,9 +60,11 @@ export class UiAccordionPluginToggle extends UiPlugin {
     /**
      * Event children.initialized
      * @private
+     * @param {Event} event - Children initialized event
      * @return {void}
      */
-    #event_childrenInitialized() {
+    #event_childrenInitialized( event ) {
+        if ( event.detail.target !== this.context ) return;
         if ( !this.context.config.get( 'closeAllButFirstOnInit' ) ) return;
         let has_open = false;
         this.context.eachChild( ( child ) => {
