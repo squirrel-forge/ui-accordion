@@ -322,7 +322,7 @@ export class UiAccordionPanelComponent extends UiComponent {
                 this.states.unset( 'animating' );
                 return;
             }
-            if ( events && !this.dispatchEvent( 'panel.show' ) ) {
+            if ( events && !this.dispatchEvent( 'panel.show', null, true, true ) ) {
                 this.states.unset( 'animating' );
                 return;
             }
@@ -360,7 +360,7 @@ export class UiAccordionPanelComponent extends UiComponent {
                 this.states.unset( 'animating' );
                 return;
             }
-            if ( events && !this.dispatchEvent( 'panel.hide' ) ) {
+            if ( events && !this.dispatchEvent( 'panel.hide', null, true, true ) ) {
                 this.states.unset( 'animating' );
                 return;
             }
