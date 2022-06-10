@@ -19,12 +19,14 @@ import { UiAccordionPanelComponent } from './UiAccordionPanelComponent';
 /**
  * Ui accordion component exception
  * @class
+ * @extends Exception
  */
 class UiAccordionComponentException extends Exception {}
 
 /**
  * Ui accordion component
  * @class
+ * @extends UiComponent
  */
 export class UiAccordionComponent extends UiComponent {
 
@@ -329,12 +331,13 @@ export class UiAccordionComponent extends UiComponent {
      * @param {null|number|'all'} index - Index to show
      * @param {boolean} events - Dispatch events
      * @param {boolean} force - Force action
+     * @param {boolean} instant - No transition
      * @return {void}
      */
-    show( index = null, events = true, force = false ) {
+    show( index = null, events = true, force = false, instant = false ) {
         this.eachChild( ( child, i ) => {
             if ( index instanceof Array && index.includes( index ) || [ null, 'all', i ].includes( index ) ) {
-                child.show( events, force );
+                child.show( events, force, instant );
             }
         } );
     }
@@ -345,12 +348,13 @@ export class UiAccordionComponent extends UiComponent {
      * @param {null|number|'all'} index - Index to show
      * @param {boolean} events - Dispatch events
      * @param {boolean} force - Force action
+     * @param {boolean} instant - No transition
      * @return {void}
      */
-    hide( index = null, events = true, force = false ) {
+    hide( index = null, events = true, force = false, instant = false ) {
         this.eachChild( ( child, i ) => {
             if ( index instanceof Array && index.includes( index ) || [ null, 'all', i ].includes( index ) ) {
-                child.hide( events, force );
+                child.hide( events, force, instant );
             }
         } );
     }

@@ -18,6 +18,7 @@ import {
 /**
  * Ui accordion plugin scroll focus
  * @class
+ * @extends UiPlugin
  */
 export class UiAccordionPluginScroller extends UiPlugin {
 

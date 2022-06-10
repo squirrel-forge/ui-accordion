@@ -21,12 +21,14 @@ import {
 /**
  * Ui accordion panel component exception
  * @class
+ * @extends Exception
  */
 class UiAccordionPanelComponentException extends Exception {}
 
 /**
  * Ui accordion panel component
  * @class
+ * @extends UiComponent
  */
 export class UiAccordionPanelComponent extends UiComponent {
 

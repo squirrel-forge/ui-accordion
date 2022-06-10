@@ -11,6 +11,7 @@ import {
 /**
  * Ui accordion plugin toggle mode
  * @class
+ * @extends UiPlugin
  */
 export class UiAccordionPluginToggle extends UiPlugin {
 
