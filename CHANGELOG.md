@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.5
+ - Added missing *instant* argument to *UiAccordionComponent* methods *show* and *hide*.
+ - Improved documentation, code and readme.
+
 ## 0.7.4
  - Ensure *panel.show* and *panel.hide* event are cancellable.
 
