@@ -12,7 +12,8 @@
 ---
 
 ### UiAccordionPluginScroller
-UiAccordionPluginScroller class - UiAccordion plugin for related options.
+UiAccordionPluginScroller class - UiAccordion plugin for scroll related options.
+The component extends [UiPlugin](https://github.com/squirrel-forge/ui-core/blob/main/docs/Abstracts.md#UiPlugin) from [@squirrel-forge/ui-core](https://github.com/squirrel-forge/ui-core) module.
 
 #### Component settings
 Component settings are changed/extended as following.
@@ -50,6 +51,7 @@ For more details check the [UiAccordionPluginScroller source file](../src/es6/Pl
 
 ### UiAccordionPluginToggle
 UiAccordionPluginToggle class - UiAccordion plugin adds a toggle mode.
+The component extends [UiPlugin](https://github.com/squirrel-forge/ui-core/blob/main/docs/Abstracts.md#UiPlugin) from [@squirrel-forge/ui-core](https://github.com/squirrel-forge/ui-core) module.
 
 #### Component settings
 Component settings are changed/extended as following.

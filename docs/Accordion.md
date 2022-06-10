@@ -13,6 +13,7 @@
 
 ### UiAccordionComponent
 UiAccordionComponent class - Accordion component with events and plugins support.
+The component extends [UiComponent](https://github.com/squirrel-forge/ui-core/blob/main/docs/Abstracts.md#UiComponent) from [@squirrel-forge/ui-core](https://github.com/squirrel-forge/ui-core) module.
 
 #### Component settings
 Component settings might be changed or extended through plugins.
@@ -40,10 +41,9 @@ const defaults = {
 
 #### Class overview
 ```javascript
-// Event names: Are defined on UiAccordionPanelComponent
 class UiAccordionComponent extends UiComponent {
   static selector : String
-  constructor( element, settings = null, plugins = [], debug = null, extend = [], init = true ) {}
+  constructor( element, settings = null, defaults = null, extend = null, states = null, plugins = null, parent = null, debug = null, init = true ) {}
   mode : String
   disabled : Boolean
   canShow( panel ) {} // boolean
@@ -53,6 +53,9 @@ class UiAccordionComponent extends UiComponent {
 }
 ```
 For more details check the [UiAccordionComponent source file](../src/es6/Accordion/UiAccordionComponent.js).
+
+#### Events
+The accordion wrapper has no own custom events, check the [UiAccordionPanelComponent](#uiaccordionpanelcomponent) for related events.
 
 #### Using the component
 For details refer to the settings, class overview and code file mentioned above.
@@ -84,6 +87,7 @@ Set individual config options via following attribute syntax:
 
 ### UiAccordionPanelComponent
 UiAccordionPanelComponent class - AccordionPanel component.
+The component extends [UiComponent](https://github.com/squirrel-forge/ui-core/blob/main/docs/Abstracts.md#UiComponent) from [@squirrel-forge/ui-core](https://github.com/squirrel-forge/ui-core) module.
 
 #### Component settings
 Component settings might be changed or extended through plugins.
@@ -123,20 +127,26 @@ const defaults = {
 
 #### Class overview
 ```javascript
-// Event names: panel.show panel.shown panel.hide panel.hidden
 class UiAccordionPanelComponent extends UiComponent {
   static selector : String
-  constructor( element, settings = null, plugins = [], debug = null, extend = [], init = true ) {}
+  constructor( element, settings = null, defaults = null, extend = null, states = null, plugins = null, parent = null, debug = null, init = true ) {}
   content : HTMLElement
   disabled : Boolean
   open : Boolean
+  animating : Boolean
   focus() {} // void
   blur() {} // void
-  show( events = true, force = false ) {} // void
-  hide( events = true, force = false ) {} // void
+  show( events = true, force = false, instant = false ) {} // void
+  hide( events = true, force = false, instant = false ) {} // void
 }
 ```
 For more details check the [UiAccordionPanelComponent source file](../src/es6/Accordion/UiAccordionPanelComponent.js).
+
+#### Events
+ - **panel.show** - Fired before the panel opens, can be prevented with event.preventDefault().
+ - **panel.shown** - Fired after the panel has opened.
+ - **panel.hide** - Fired before the panel closes, can be prevented with event.preventDefault().
+ - **panel.hidden** - Fired after the panel has closed.
 
 #### Using the component
 For details refer to the settings, class overview and code file mentioned above.
