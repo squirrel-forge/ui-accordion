@@ -1,19 +1,8 @@
 /**
  * Requires
  */
-import {
-    UiPlugin
-} from '@squirrel-forge/ui-core';
-
-// Import for local dev
-// } from '../../../../ui-core';
-import {
-    holdElementViewportPosition,
-    scrollComplete
-} from '@squirrel-forge/ui-util';
-
-// Import for local dev
-// } from '../../../../ui-util';
+import { UiPlugin } from '@squirrel-forge/ui-core';
+import { scrollComplete } from '@squirrel-forge/ui-util';
 
 /**
  * Ui accordion plugin scroll focus
@@ -56,33 +45,11 @@ export class UiAccordionPluginScroller extends UiPlugin {
             // Capture scroll into closed panel
             // @type {boolean}
             captureScrollInto: true,
-
-            // Safe animation position for panel.show event
-            // @type {boolean}
-            safemode : true,
         };
-
-        // Register events
-        this.registerEvents = [
-            [ 'panel.show', ( event ) => { this.#run_safemode( event.detail.target ); } ],
-        ];
 
         // Register global events
         window.addEventListener( 'scroll.before', ( event ) => { this.#event_scrollBefore( event ); } );
         window.addEventListener( 'scroll.after', ( event ) => { this.#event_scrollAfter( event ); } );
-    }
-
-    /**
-     * Run safe mode hold panel position
-     * @private
-     * @param {UiAccordionPanelComponent} panel - Panel
-     * @return {void}
-     */
-    #run_safemode( panel ) {
-        if ( this.context.config.get( 'safemode' ) ) {
-            const len = panel.config.get('slideOptions.speed') || 310;
-            holdElementViewportPosition( panel.dom, len );
-        }
     }
 
     /**
