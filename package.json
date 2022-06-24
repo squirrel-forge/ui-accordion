@@ -1,6 +1,6 @@
 {
   "name": "@squirrel-forge/ui-accordion",
-  "version": "0.7.5",
+  "version": "0.8.0",
   "description": "An accessible accordion with events and plugin support, made for the browser and babel compatible.",
   "main": "src/es6/index.js",
   "scripts": {
@@ -29,9 +29,6 @@
     "url": "https://github.com/squirrel-forge/ui-accordion/issues"
   },
   "homepage": "https://github.com/squirrel-forge/ui-accordion#readme",
-  "devDependencies": {
-    "@squirrel-forge/simple-webpack": "^0.9.x"
-  },
   "dependencies": {
     "@squirrel-forge/ui-core": "^0.10.x"
   }
