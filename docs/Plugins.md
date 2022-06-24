@@ -6,8 +6,35 @@
 > [Accordion](Accordion.md) <[ Plugins ]> [Table of contents](../README.md#table-of-contents)
 
 ## Table of contents
+ - [UiAccordionPluginSafemode](#UiAccordionPluginSafemode)
  - [UiAccordionPluginScroller](#UiAccordionPluginScroller)
  - [UiAccordionPluginToggle](#UiAccordionPluginToggle)
+
+---
+
+### UiAccordionPluginSafemode
+UiAccordionPluginSafemode class - UiAccordion plugin for ensuring panel stays within viewport while opening.
+The component extends [UiPlugin](https://github.com/squirrel-forge/ui-core/blob/main/docs/Abstracts.md#UiPlugin) from [@squirrel-forge/ui-core](https://github.com/squirrel-forge/ui-core) module.
+
+#### Component settings
+Component settings are changed/extended as following.
+```javascript
+const extendConfig = {
+
+    // Safe animation position for panel.show event
+    // @type {boolean}
+    safemode : true,
+};
+```
+
+#### Class overview
+```javascript
+class UiAccordionPluginSafemode extends UiPlugin {
+  static pluginName : String
+  constructor( options, context, debug ) {}
+}
+```
+For more details check the [UiAccordionPluginSafemode source file](../src/es6/Plugins/UiAccordionPluginSafemode.js).
 
 ---
 
@@ -31,10 +58,6 @@ const extendConfig = {
     // Capture scroll into closed panel
     // @type {boolean}
     captureScrollInto: true,
-
-    // Safe animation position for panel.show event
-    // @type {boolean}
-    safemode : true,
 };
 ```
 
