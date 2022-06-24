@@ -23,6 +23,7 @@ Package contents listing by namespace.
    - [UiAccordionComponent](docs/Accordion.md#UiAccordionComponent)
    - [UiAccordionPanelComponent](docs/Accordion.md#UiAccordionPanelComponent)
  - [Plugins](docs/Plugins.md)
+   - [UiAccordionPluginSafemode](docs/Plugins.md#UiAccordionPluginSafemode)
    - [UiAccordionPluginScroller](docs/Plugins.md#UiAccordionPluginScroller)
    - [UiAccordionPluginToggle](docs/Plugins.md#UiAccordionPluginToggle)
 
