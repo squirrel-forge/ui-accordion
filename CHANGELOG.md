@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.0
+ - Separated *safemode* options to own plugin class and make it available independently to the scrolling plugin.
+
 ## 0.7.5
  - Added missing *instant* argument to *UiAccordionComponent* methods *show* and *hide*.
  - Improved documentation, code and readme.
