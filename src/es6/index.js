@@ -1,6 +1,6 @@
 /* !
  * @module      : @squirrel-forge/ui-accordion
- * @version     : 0.7.5
+ * @version     : 0.8.0
  * @license     : MIT
  * @copyright   : 2022 squirrel-forge
  * @author      : Daniel Hartwell aka. siux <me@siux.info>
@@ -17,4 +17,5 @@ export { UiAccordionPanelComponent } from './Accordion/UiAccordionPanelComponent
  * Plugins
  */
 export { UiAccordionPluginToggle } from './Plugins/UiAccordionPluginToggle.js';
+export { UiAccordionPluginSafemode } from './Plugins/UiAccordionPluginSafemode.js';
 export { UiAccordionPluginScroller } from './Plugins/UiAccordionPluginScroller.js';
