@@ -70,6 +70,8 @@ export class UiAccordionComponent extends UiComponent {
             // @type {Array}
             availableModes : [ 'free' ],
 
+            kbA11y : true,
+
             // Children
             // @type {Object}
             children : {
@@ -141,6 +143,7 @@ export class UiAccordionComponent extends UiComponent {
      * @return {void}
      */
     #event_keydown( event ) {
+        if ( !this.config.get( 'kbA11y' ) ) return;
         const keys = [ 'ArrowUp', 'ArrowDown', 'Home', 'End' ];
         if ( !keys.includes( event.key ) ) return;
 
@@ -157,25 +160,23 @@ export class UiAccordionComponent extends UiComponent {
 
         // If we were able to select a panel index
         if ( index !== null ) {
-            let move_focus_to = this.#event_keydown_plugins( event, index );
+            let move_focus_to = null;
 
             // Default focus selection logic
-            if ( move_focus_to === null ) {
-                if ( event.key === 'ArrowUp' ) {
-                    move_focus_to = this.#select_first_active_from( index - 1, -1 );
-                    if ( move_focus_to === null ) {
-                        move_focus_to = this.#select_first_active_from( this.children.length - 1, -1 );
-                    }
-                } else if ( event.key === 'ArrowDown' ) {
-                    move_focus_to = this.#select_first_active_from( index + 1, 1 );
-                    if ( move_focus_to === null ) {
-                        move_focus_to = this.#select_first_active_from( 0, 1 );
-                    }
-                } else if ( event.key === 'Home' ) {
-                    move_focus_to = this.#select_first_active_from( 0, 1 );
-                } else if ( event.key === 'End' ) {
+            if ( event.key === 'ArrowUp' ) {
+                move_focus_to = this.#select_first_active_from( index - 1, -1 );
+                if ( move_focus_to === null ) {
                     move_focus_to = this.#select_first_active_from( this.children.length - 1, -1 );
                 }
+            } else if ( event.key === 'ArrowDown' ) {
+                move_focus_to = this.#select_first_active_from( index + 1, 1 );
+                if ( move_focus_to === null ) {
+                    move_focus_to = this.#select_first_active_from( 0, 1 );
+                }
+            } else if ( event.key === 'Home' ) {
+                move_focus_to = this.#select_first_active_from( 0, 1 );
+            } else if ( event.key === 'End' ) {
+                move_focus_to = this.#select_first_active_from( this.children.length - 1, -1 );
             }
 
             // Move the focus
@@ -188,25 +189,6 @@ export class UiAccordionComponent extends UiComponent {
                 event.preventDefault();
             }
         }
-    }
-
-    /**
-     * Run keyboard selection plugins
-     * @param {Event} event - KeyDown event
-     * @param {number} index - Current child index
-     * @return {null|number} - New index
-     */
-    #event_keydown_plugins( event, index ) {
-        const results = this.plugins?.run( 'keyDownSelectFrom', [ event, index ] );
-        if ( isPojo( results ) ) {
-            const values = Object.values( results );
-            for ( let i = 0; i < values.length; i++ ) {
-                if ( typeof values[ i ] === 'number' ) {
-                    return values[ i ];
-                }
-            }
-        }
-        return null;
     }
 
     /**
