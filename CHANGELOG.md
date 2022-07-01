@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.1
+ - Remove internal *event_keydown_plugins* call and add *kbA11y* boolean option for keyboard control.
+
 ## 0.8.0
  - Separated *safemode* options to own plugin class and make it available independently to the scrolling plugin.
 
