@@ -66,6 +66,7 @@ export class UiAccordionPanelComponent extends UiComponent {
             closeOnDisable : true,
 
             // Slide function options
+            // @type {Object}
             slideOptions : {
 
                 // Slide speed, default: 300ms
